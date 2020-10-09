@@ -24,8 +24,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tvName"
-        tools:text="sameeksha22"
-        android:textColor="@color/dark_grey"/>
+        android:textColor="@color/dark_grey"
+        tools:text="\@sameeksha22" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -35,7 +35,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfilename"
-        tools:text="This is my tweet!!" />
+        tools:text="This is my tweet!!"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/tvName"
@@ -47,4 +48,14 @@
         android:layout_marginTop="0dp"
         tools:text="Sameeksha Mahajan"
         android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvRelativeTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/tvScreenName"
+        tools:text="51m"
+        android:textColor="@color/dark_grey"/>
 </RelativeLayout>

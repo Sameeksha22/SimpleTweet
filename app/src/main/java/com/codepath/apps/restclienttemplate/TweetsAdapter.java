@@ -16,6 +16,8 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
     Context context;
@@ -68,6 +70,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         TextView tvName;
+        TextView tvRelativeTimestamp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +78,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvName = itemView.findViewById(R.id.tvName);
+            tvRelativeTimestamp = itemView.findViewById(R.id.tvRelativeTimestamp);
         }
 
         public void bind(Tweet tweet) {
@@ -82,7 +86,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText("@" + tweet.user.screenName);
             tvName.setTypeface(null, Typeface.BOLD);
             tvName.setText(tweet.user.name);
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfilemage);
+            tvRelativeTimestamp.setText(" . " + tweet.getCreatedAt());
+            Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(100, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
         }
     }
 
