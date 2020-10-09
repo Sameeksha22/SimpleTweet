@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp">
@@ -35,19 +36,19 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfilename"
-        tools:text="This is my tweet!!"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        tools:text="This is my tweet!!" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_toEndOf="@+id/ivProfilename"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        tools:text="Sameeksha Mahajan"
-        android:textColor="@color/black"/>
+        android:layout_toEndOf="@+id/ivProfilename"
+        android:textColor="@color/black"
+        tools:text="Sameeksha Mahajan" />
 
     <TextView
         android:id="@+id/tvRelativeTimestamp"
@@ -56,6 +57,26 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/tvScreenName"
-        tools:text="51m"
-        android:textColor="@color/dark_grey"/>
+        android:textColor="@color/dark_grey"
+        tools:text="51m" />
+
+    <TextView
+        android:id="@+id/tvRetweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/ivProfilename"
+        tools:text="7 Retweets" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/tvRetweet"
+        tools:text="21 Likes" />
 </RelativeLayout>
