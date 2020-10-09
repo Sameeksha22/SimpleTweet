@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/ivProfileImage"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         tools:srcCompat="@tools:sample/avatars" />
@@ -45,6 +45,8 @@
         android:layout_marginTop="40dp"
         tools:text="This is my tweet!!"
         android:textColor="@color/black"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:textSize="18sp"/>
 
     <TextView

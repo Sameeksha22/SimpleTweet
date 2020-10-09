@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         tvDate.setText(tweet.getDate() + ".");
         tvRetweets.setText(tweet.retweetCount + " retweets");
         tvLikes.setText(tweet.likesCount+" likes");
-        Glide.with(this).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(70, 10)).placeholder(R.drawable.placeholder).into(ivProfileImage);
+        Glide.with(this).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfileImage);
 
 
     }

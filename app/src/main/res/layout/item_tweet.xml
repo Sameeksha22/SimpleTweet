@@ -37,6 +37,8 @@
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfilename"
         android:textColor="@color/black"
+        android:autoLink="all"
+        android:linksClickable="true"
         tools:text="This is my tweet!!" />
 
     <TextView
