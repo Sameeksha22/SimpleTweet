@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONArray;
@@ -18,6 +20,7 @@ public class Tweet {
     public long id;
     public long retweetCount;
     public long likesCount;
+    public List<String> expandedUrls;
     public User user;
 
     // Empty constructor needed by Parceler library
@@ -31,6 +34,17 @@ public class Tweet {
         tweet.retweetCount = jsonObject.getLong("retweet_count");
         tweet.likesCount = jsonObject.getLong("favorite_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.expandedUrls = new ArrayList<>();
+        JSONObject urls = jsonObject.getJSONObject("entities");
+        if (urls.has("media")){
+            JSONArray medias = urls.getJSONArray("media");
+            for (int i = 0; i < medias.length(); i++){
+                JSONObject media = medias.getJSONObject(i);
+                if(media.getString("type").matches("photo")) {
+                    tweet.expandedUrls.add(media.getString("media_url"));
+                }
+            }
+        }
         return tweet;
     }
 

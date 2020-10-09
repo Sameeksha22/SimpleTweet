@@ -82,6 +82,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         RelativeLayout container;
         TextView tvRetweets;
         TextView tvLikes;
+        ImageView ivEmbeddedImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +94,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             container = itemView.findViewById(R.id.relativeLayout);
             tvRetweets = itemView.findViewById(R.id.tvRetweet);
             tvLikes = itemView.findViewById(R.id.tvLikes);
+            ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
         }
 
         public void bind(final Tweet tweet) {
@@ -104,6 +106,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvRetweets.setText(tweet.retweetCount+ " retweets");
             tvLikes.setText(tweet.likesCount+" likes");
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
+            if (tweet.expandedUrls.size() > 0){
+                for (int i = 0; i < tweet.expandedUrls.size(); i++){
+                    String embedded_url = tweet.expandedUrls.get(i);
+                    embedded_url.replace("http", "https");
+                    ivEmbeddedImage.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(embedded_url).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+                }
+            }
+//            else{
+////                ivEmbeddedImage.setVisibility(View.GONE);
+//            }
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

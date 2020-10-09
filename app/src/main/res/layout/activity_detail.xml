@@ -53,11 +53,11 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
+        android:layout_below="@+id/ivEmbeddedImage"
         android:layout_marginTop="5dp"
-        tools:text="30 Jun 20"
         android:textColor="@color/dark_grey"
-        android:textSize="15sp"/>
+        android:textSize="15sp"
+        tools:text="30 Jun 20" />
 
     <TextView
         android:id="@+id/tvRetweets"
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvDate"
         android:layout_marginTop="5dp"
-        tools:text="6 Retweets"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        tools:text="6 Retweets" />
 
     <TextView
         android:id="@+id/tvLikes"
@@ -78,4 +78,15 @@
         android:layout_toEndOf="@+id/tvRetweets"
         tools:text="19 Likes"
         android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/ivEmbeddedImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/ivProfilename"
+        android:visibility="gone"
+        tools:srcCompat="@tools:sample/avatars" />
 </RelativeLayout>

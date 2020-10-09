@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvDate;
     TextView tvRetweets;
     TextView tvLikes;
+    ImageView ivEmbeddedImage;
 
 
     @Override
@@ -41,6 +43,7 @@ public class DetailActivity extends AppCompatActivity {
         tvDate = findViewById(R.id.tvDate);
         tvRetweets = findViewById(R.id.tvRetweets);
         tvLikes = findViewById(R.id.tvLikes);
+        ivEmbeddedImage = findViewById(R.id.ivEmbeddedImage);
 
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         Log.i(TAG, "intent received");
@@ -51,7 +54,14 @@ public class DetailActivity extends AppCompatActivity {
         tvRetweets.setText(tweet.retweetCount + " retweets");
         tvLikes.setText(tweet.likesCount+" likes");
         Glide.with(this).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfileImage);
-
+        if (tweet.expandedUrls.size() > 0){
+            for (int i = 0; i < tweet.expandedUrls.size(); i++){
+                String embedded_url = tweet.expandedUrls.get(i);
+                embedded_url.replace("http", "https");
+                ivEmbeddedImage.setVisibility(View.VISIBLE);
+                Glide.with(this).load(embedded_url).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+            }
+        }
 
     }
 
