@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,6 +82,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvRetweets;
         TextView tvLikes;
         ImageView ivEmbeddedImage;
+        VideoView vvEmbdeddedVideo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +95,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvRetweets = itemView.findViewById(R.id.tvRetweet);
             tvLikes = itemView.findViewById(R.id.tvLikes);
             ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
+            vvEmbdeddedVideo = itemView.findViewById(R.id.vvEmbeddedVide);
         }
 
         public void bind(final Tweet tweet) {
@@ -104,10 +108,21 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvLikes.setText(tweet.likesCount+" likes");
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
             ivEmbeddedImage.setVisibility(View.GONE);
-            if (tweet.expandedUrls.size() > 0){
+            vvEmbdeddedVideo.setVisibility(View.GONE);
+
+            if (tweet.embeddedVideoUrls.size() > 0){
+                Uri uri = Uri.parse(tweet.embeddedVideoUrls.get(0));
+                vvEmbdeddedVideo.setVisibility(View.VISIBLE);
+                vvEmbdeddedVideo.setVideoURI(uri);
+                vvEmbdeddedVideo.start();
+            }
+
+            else if (tweet.expandedUrls.size() > 0){
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
             }
+
+
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override

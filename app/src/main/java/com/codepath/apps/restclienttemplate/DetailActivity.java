@@ -1,10 +1,12 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvRetweets;
     TextView tvLikes;
     ImageView ivEmbeddedImage;
+    VideoView vvEmbeddedVideo;
 
 
     @Override
@@ -44,6 +47,7 @@ public class DetailActivity extends AppCompatActivity {
         tvRetweets = findViewById(R.id.tvRetweets);
         tvLikes = findViewById(R.id.tvLikes);
         ivEmbeddedImage = findViewById(R.id.ivEmbeddedImage);
+        vvEmbeddedVideo = findViewById(R.id.vvEmbeddedVide);
 
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         Log.i(TAG, "intent received");
@@ -54,15 +58,24 @@ public class DetailActivity extends AppCompatActivity {
         tvRetweets.setText(tweet.retweetCount + " retweets");
         tvLikes.setText(tweet.likesCount+" likes");
         Glide.with(this).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfileImage);
-        if (tweet.expandedUrls.size() > 0){
-            Iterator<String> it = tweet.expandedUrls.iterator();
-            while (it.hasNext()){
-                String embedded_url = it.next();
-                embedded_url.replace("http", "https");
-                ivEmbeddedImage.setVisibility(View.VISIBLE);
-                Glide.with(this).load(embedded_url).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
-            }
+
+        ivEmbeddedImage.setVisibility(View.GONE);
+        vvEmbeddedVideo.setVisibility(View.GONE);
+
+
+        if (tweet.embeddedVideoUrls.size() > 0){
+            Uri uri = Uri.parse(tweet.embeddedVideoUrls.get(0));
+            vvEmbeddedVideo.setVisibility(View.VISIBLE);
+            vvEmbeddedVideo.setVideoURI(uri);
+            vvEmbeddedVideo.start();
         }
+
+        else if (tweet.expandedUrls.size() > 0){
+            ivEmbeddedImage.setVisibility(View.VISIBLE);
+            Glide.with(this).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+        }
+
+
 
     }
 

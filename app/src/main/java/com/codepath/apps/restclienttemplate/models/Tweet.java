@@ -21,6 +21,7 @@ public class Tweet {
     public long retweetCount;
     public long likesCount;
     public List<String> expandedUrls;
+    public List<String> embeddedVideoUrls;
     public User user;
 
     // Empty constructor needed by Parceler library
@@ -35,6 +36,7 @@ public class Tweet {
         tweet.likesCount = jsonObject.getLong("favorite_count");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.expandedUrls = new ArrayList<>();
+        tweet.embeddedVideoUrls = new ArrayList<>();
         JSONObject urls = jsonObject.getJSONObject("entities");
         if (urls.has("media")){
             JSONArray medias = urls.getJSONArray("media");
@@ -46,6 +48,29 @@ public class Tweet {
             }
         }
 
+        if (jsonObject.has("extended_entities")) {
+            JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
+            JSONArray mediaArray = extendedEntities.getJSONArray("media");
+            for (int i = 0; i < mediaArray.length(); i++) {
+                JSONObject media = mediaArray.getJSONObject(i);
+                if(media.has("video_info")){
+                    JSONArray variants = media.getJSONObject("video_info").getJSONArray("variants");
+                    for(int j = 0; j < variants.length(); j++){
+                        int bit_rate = 0;
+                        if (variants.getJSONObject(i).has("bitrate"))
+                            bit_rate = variants.getJSONObject(i).getInt("bitrate");
+                        String content_type = variants.getJSONObject(i).getString("content_type");
+                        if (bit_rate == 832000 || content_type.contains("video")){
+                            tweet.embeddedVideoUrls.add(variants.getJSONObject(i).getString("url"));
+                            break;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        Log.d("Tweet - Video", tweet.embeddedVideoUrls.toString());
         return tweet;
     }
 

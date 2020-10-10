@@ -67,4 +67,9 @@ allprojects {
         }
     }
 
+    repositories {
+        google()
+        jcenter()
+    }
+
 }
