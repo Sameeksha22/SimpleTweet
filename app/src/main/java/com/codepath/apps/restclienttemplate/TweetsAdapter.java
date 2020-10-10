@@ -84,6 +84,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivEmbeddedImage;
         VideoView vvEmbdeddedVideo;
         ImageView ivVerified;
+        ImageView ivRetweeted;
+        ImageView ivLike;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +101,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
             vvEmbdeddedVideo = itemView.findViewById(R.id.vvEmbeddedVide);
             ivVerified = itemView.findViewById(R.id.ivVerified);
+
         }
 
         public void bind(final Tweet tweet) {
@@ -106,8 +110,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvName.setTypeface(null, Typeface.BOLD);
             tvName.setText(tweet.user.name);
             tvRelativeTimestamp.setText(" . " + tweet.getCreatedAt());
-            tvRetweets.setText(tweet.retweetCount+ " retweets");
-            tvLikes.setText(tweet.likesCount+" likes");
+            tvRetweets.setText(tweet.retweetCount + " Retweets");
+            tvLikes.setText(tweet.likesCount + " Likes");
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
             ivEmbeddedImage.setVisibility(View.GONE);
             vvEmbdeddedVideo.setVisibility(View.GONE);
@@ -129,6 +133,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 ivVerified.setVisibility(View.VISIBLE);
             }
 
+            if (tweet.retweeted){
+                tvRetweets.setTextColor(context.getResources().getColor(R.color.medium_green));
+            }
+
+            if (tweet.favorited){
+                tvLikes.setTextColor(context.getResources().getColor(R.color.medium_red));
+            }
 
 
             container.setOnClickListener(new View.OnClickListener() {

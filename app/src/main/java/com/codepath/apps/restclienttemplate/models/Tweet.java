@@ -23,6 +23,8 @@ public class Tweet {
     public List<String> expandedUrls;
     public List<String> embeddedVideoUrls;
     public User user;
+    public boolean retweeted;
+    public boolean favorited;
 
     // Empty constructor needed by Parceler library
     public Tweet(){}
@@ -30,6 +32,8 @@ public class Tweet {
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
         tweet.body = jsonObject.getString("text");
+        tweet.retweeted = jsonObject.getBoolean("retweeted");
+        tweet.favorited = jsonObject.getBoolean("favorited");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.id = jsonObject.getLong("id");
         tweet.retweetCount = jsonObject.getLong("retweet_count");

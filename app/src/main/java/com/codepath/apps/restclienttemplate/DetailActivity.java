@@ -80,7 +80,7 @@ public class DetailActivity extends AppCompatActivity {
         if (tweet.user.verified){
             ivVerified.setVisibility(View.VISIBLE);
         }
-        
+
 
     }
 
