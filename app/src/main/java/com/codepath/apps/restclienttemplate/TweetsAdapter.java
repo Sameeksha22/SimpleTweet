@@ -83,6 +83,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvLikes;
         ImageView ivEmbeddedImage;
         VideoView vvEmbdeddedVideo;
+        ImageView ivVerified;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +97,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvLikes = itemView.findViewById(R.id.tvLikes);
             ivEmbeddedImage = itemView.findViewById(R.id.ivEmbeddedImage);
             vvEmbdeddedVideo = itemView.findViewById(R.id.vvEmbeddedVide);
+            ivVerified = itemView.findViewById(R.id.ivVerified);
         }
 
         public void bind(final Tweet tweet) {
@@ -109,6 +111,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
             ivEmbeddedImage.setVisibility(View.GONE);
             vvEmbdeddedVideo.setVisibility(View.GONE);
+            ivVerified.setVisibility(View.GONE);
 
             if (tweet.embeddedVideoUrls.size() > 0){
                 Uri uri = Uri.parse(tweet.embeddedVideoUrls.get(0));
@@ -120,6 +123,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             else if (tweet.expandedUrls.size() > 0){
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+            }
+
+            if (tweet.user.verified){
+                ivVerified.setVisibility(View.VISIBLE);
             }
 
 

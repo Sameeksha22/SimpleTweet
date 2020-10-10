@@ -10,6 +10,7 @@ public class User {
     public String name;
     public String screenName;
     public String profileImageUrl;
+    public Boolean verified;
 
     // Empty constructor for parceler
     public User()
@@ -22,6 +23,7 @@ public class User {
         user.name = jsonObject.getString("name");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url_https");
+        user.verified = jsonObject.getBoolean("verified");
         return user;
     }
 }

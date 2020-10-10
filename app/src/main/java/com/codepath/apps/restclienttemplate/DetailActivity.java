@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvLikes;
     ImageView ivEmbeddedImage;
     VideoView vvEmbeddedVideo;
+    ImageView ivVerified;
 
 
     @Override
@@ -48,6 +49,7 @@ public class DetailActivity extends AppCompatActivity {
         tvLikes = findViewById(R.id.tvLikes);
         ivEmbeddedImage = findViewById(R.id.ivEmbeddedImage);
         vvEmbeddedVideo = findViewById(R.id.vvEmbeddedVide);
+        ivVerified = findViewById(R.id.ivVerified);
 
         final Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         Log.i(TAG, "intent received");
@@ -75,7 +77,10 @@ public class DetailActivity extends AppCompatActivity {
             Glide.with(this).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
         }
 
-
+        if (tweet.user.verified){
+            ivVerified.setVisibility(View.VISIBLE);
+        }
+        
 
     }
 

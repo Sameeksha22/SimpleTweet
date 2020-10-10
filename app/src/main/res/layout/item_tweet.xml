@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
-        android:layout_toEndOf="@+id/tvName"
+        android:layout_toEndOf="@+id/ivVerified"
         android:textColor="@color/dark_grey"
         tools:text="\@sameeksha22" />
 
@@ -109,6 +109,18 @@
 
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivVerified"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/tvName"
+        app:srcCompat="@drawable/verfied"
+        android:visibility="gone"
+        />
 
 
 </RelativeLayout>

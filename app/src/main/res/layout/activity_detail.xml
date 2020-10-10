@@ -106,5 +106,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ivVerified"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="3dp"
+        android:layout_toEndOf="@+id/tvName"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/verfied" />
+
 
 </RelativeLayout>
