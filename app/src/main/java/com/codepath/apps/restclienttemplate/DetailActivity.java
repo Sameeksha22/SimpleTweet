@@ -1,21 +1,21 @@
 package com.codepath.apps.restclienttemplate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
-import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.parceler.Parcels;
 
+import java.util.Iterator;
+
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-import okhttp3.Headers;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -55,8 +55,9 @@ public class DetailActivity extends AppCompatActivity {
         tvLikes.setText(tweet.likesCount+" likes");
         Glide.with(this).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfileImage);
         if (tweet.expandedUrls.size() > 0){
-            for (int i = 0; i < tweet.expandedUrls.size(); i++){
-                String embedded_url = tweet.expandedUrls.get(i);
+            Iterator<String> it = tweet.expandedUrls.iterator();
+            while (it.hasNext()){
+                String embedded_url = it.next();
                 embedded_url.replace("http", "https");
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
                 Glide.with(this).load(embedded_url).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);

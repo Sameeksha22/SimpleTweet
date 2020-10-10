@@ -1,6 +1,5 @@
 package com.codepath.apps.restclienttemplate;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,8 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -106,17 +103,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvRetweets.setText(tweet.retweetCount+ " retweets");
             tvLikes.setText(tweet.likesCount+" likes");
             Glide.with(context).load(tweet.user.profileImageUrl).fitCenter().transform(new RoundedCornersTransformation(50, 10)).placeholder(R.drawable.placeholder).into(ivProfilemage);
+            ivEmbeddedImage.setVisibility(View.GONE);
             if (tweet.expandedUrls.size() > 0){
-                for (int i = 0; i < tweet.expandedUrls.size(); i++){
-                    String embedded_url = tweet.expandedUrls.get(i);
-                    embedded_url.replace("http", "https");
-                    ivEmbeddedImage.setVisibility(View.VISIBLE);
-                    Glide.with(context).load(embedded_url).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
-                }
+                ivEmbeddedImage.setVisibility(View.VISIBLE);
+                Glide.with(context).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
             }
-//            else{
-////                ivEmbeddedImage.setVisibility(View.GONE);
-//            }
+
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
