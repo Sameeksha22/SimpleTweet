@@ -117,16 +117,16 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             vvEmbdeddedVideo.setVisibility(View.GONE);
             ivVerified.setVisibility(View.GONE);
 
-            if (tweet.embeddedVideoUrls.size() > 0){
-                Uri uri = Uri.parse(tweet.embeddedVideoUrls.get(0));
+            if (! tweet.embeddedVideoUrls.isEmpty()){
+                Uri uri = Uri.parse(tweet.embeddedVideoUrls);
                 vvEmbdeddedVideo.setVisibility(View.VISIBLE);
                 vvEmbdeddedVideo.setVideoURI(uri);
                 vvEmbdeddedVideo.start();
             }
 
-            else if (tweet.expandedUrls.size() > 0){
+            else if (! tweet.expandedUrls.isEmpty()){
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
-                Glide.with(context).load(tweet.expandedUrls.get(0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+                Glide.with(context).load(tweet.expandedUrls).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
             }
 
             if (tweet.user.verified){

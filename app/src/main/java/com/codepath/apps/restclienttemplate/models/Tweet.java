@@ -2,6 +2,12 @@ package com.codepath.apps.restclienttemplate.models;
 
 import android.util.Log;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.codepath.apps.restclienttemplate.TimeFormatter;
 
 import org.json.JSONArray;
@@ -13,17 +19,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Parcel
+@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "userId"))
 public class Tweet {
 
-    public String body;
-    public String createdAt;
+    @ColumnInfo
+    @PrimaryKey
     public long id;
+
+    @ColumnInfo
+    public String body;
+
+    @ColumnInfo
+    public String createdAt;
+
+    @ColumnInfo
     public long retweetCount;
+
+    @ColumnInfo
     public long likesCount;
-    public List<String> expandedUrls;
-    public List<String> embeddedVideoUrls;
+
+    @ColumnInfo
+    public String expandedUrls;
+
+    @ColumnInfo
+    public String embeddedVideoUrls;
+
+    @ColumnInfo
+    public Long userId;
+
+    @Ignore
     public User user;
+
+    @ColumnInfo
     public boolean retweeted;
+
+    @ColumnInfo
     public boolean favorited;
 
     // Empty constructor needed by Parceler library
@@ -38,16 +68,21 @@ public class Tweet {
         tweet.id = jsonObject.getLong("id");
         tweet.retweetCount = jsonObject.getLong("retweet_count");
         tweet.likesCount = jsonObject.getLong("favorite_count");
-        tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
-        tweet.expandedUrls = new ArrayList<>();
-        tweet.embeddedVideoUrls = new ArrayList<>();
+        User user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.user = user;
+        tweet.userId = user.id;
+//        tweet.expandedUrls = new ArrayList<>();
+//        tweet.embeddedVideoUrls = new ArrayList<>();
+        tweet.expandedUrls = "";
+        tweet.embeddedVideoUrls = "";
         JSONObject urls = jsonObject.getJSONObject("entities");
         if (urls.has("media")){
             JSONArray medias = urls.getJSONArray("media");
             for (int i = 0; i < medias.length(); i++){
                 JSONObject media = medias.getJSONObject(i);
                 if(media.getString("type").matches("photo")) {
-                    tweet.expandedUrls.add(media.getString("media_url"));
+                    tweet.expandedUrls = media.getString("media_url");
+                    break;
                 }
             }
         }
@@ -65,7 +100,7 @@ public class Tweet {
                             bit_rate = variants.getJSONObject(i).getInt("bitrate");
                         String content_type = variants.getJSONObject(i).getString("content_type");
                         if (bit_rate == 832000 || content_type.contains("video")){
-                            tweet.embeddedVideoUrls.add(variants.getJSONObject(i).getString("url"));
+                            tweet.embeddedVideoUrls = variants.getJSONObject(i).getString("url");
                             break;
                         }
                     }
@@ -73,8 +108,7 @@ public class Tweet {
 
             }
         }
-
-        Log.d("Tweet - Video", tweet.embeddedVideoUrls.toString());
+        Log.i("TWEET: ", tweet.expandedUrls);
         return tweet;
     }
 

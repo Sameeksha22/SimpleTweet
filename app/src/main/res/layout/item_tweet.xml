@@ -90,6 +90,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
         android:layout_below="@+id/tvBody"
+        android:padding="5dp"
         android:layout_toEndOf="@+id/ivProfilename">
 
         <ImageView
