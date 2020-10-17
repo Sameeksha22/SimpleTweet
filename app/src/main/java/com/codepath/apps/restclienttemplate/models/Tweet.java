@@ -71,8 +71,6 @@ public class Tweet {
         User user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.user = user;
         tweet.userId = user.id;
-//        tweet.expandedUrls = new ArrayList<>();
-//        tweet.embeddedVideoUrls = new ArrayList<>();
         tweet.expandedUrls = "";
         tweet.embeddedVideoUrls = "";
         JSONObject urls = jsonObject.getJSONObject("entities");
@@ -108,7 +106,7 @@ public class Tweet {
 
             }
         }
-        Log.i("TWEET: ", tweet.expandedUrls);
+
         return tweet;
     }
 

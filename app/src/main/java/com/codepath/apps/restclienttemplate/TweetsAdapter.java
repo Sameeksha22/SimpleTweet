@@ -84,8 +84,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivEmbeddedImage;
         VideoView vvEmbdeddedVideo;
         ImageView ivVerified;
-        ImageView ivRetweeted;
-        ImageView ivLike;
+
 
 
         public ViewHolder(@NonNull View itemView) {

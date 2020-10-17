@@ -21,4 +21,12 @@
         <item name="android:background">#000000</item>
     </style>
 
+    <style name="counterText">
+        <item name="android:textColor">#ffaab8c2</item>
+    </style>
+
+    <style name="counterOverride">
+        <item name="android:textColor">#ff0000</item>
+    </style>
+
 </resources>
