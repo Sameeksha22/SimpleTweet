@@ -125,7 +125,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
             else if (! tweet.expandedUrls.isEmpty()){
                 ivEmbeddedImage.setVisibility(View.VISIBLE);
-                Glide.with(context).load(tweet.expandedUrls).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
+                Glide.with(context).load(tweet.expandedUrls).fitCenter().transform(new RoundedCornersTransformation(50, 0)).placeholder(R.drawable.placeholder).into(ivEmbeddedImage);
             }
 
             if (tweet.user.verified){
